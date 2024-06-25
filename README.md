@@ -4,8 +4,8 @@ to route incoming HTTP traffic to the proper microservice.</h2>
 <br/>
 
 <h4>Technologies used</h4>
-- Spring Boot
-- Spring Cloud API gateway
-- Spring Cloud Netflix - Eureka Server & Client
+- Spring Boot<br/>
+- Spring Cloud API gateway<br/>
+- Spring Cloud Netflix - Eureka Server & Client<br/>
 
 ![](/sample-images/1_43NgBoAW6h-vZTgyknM8xw.jpg)
