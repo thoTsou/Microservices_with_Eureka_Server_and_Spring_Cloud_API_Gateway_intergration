@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: test-service-one
+server:
+  servlet:
+    context-path: /test-service-one
+  port: 8661
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
