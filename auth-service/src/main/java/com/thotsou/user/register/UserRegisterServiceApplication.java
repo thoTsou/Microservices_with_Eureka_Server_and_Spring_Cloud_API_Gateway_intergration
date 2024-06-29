@@ -1,13 +1,13 @@
-package com.thotsou.testserviceone;
+package com.thotsou.user.register;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TestServiceOneApplication {
+public class UserRegisterServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TestServiceOneApplication.class, args);
+		SpringApplication.run(UserRegisterServiceApplication.class, args);
 	}
 
 }
