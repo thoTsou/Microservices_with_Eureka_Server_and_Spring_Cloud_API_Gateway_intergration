@@ -10,6 +10,7 @@ import lombok.*;
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
+@Getter
 public class User{
 
     @Id
