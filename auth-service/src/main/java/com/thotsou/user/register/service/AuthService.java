@@ -1,12 +1,10 @@
 package com.thotsou.user.register.service;
 
-import com.thotsou.user.register.model.AuthRequest;
-import com.thotsou.user.register.model.AuthResponse;
-import com.thotsou.user.register.model.JWTTokenType;
-import com.thotsou.user.register.model.User;
+import com.thotsou.user.register.model.*;
 import com.thotsou.user.register.repository.UserRepository;
 import com.thotsou.user.register.security.PasswordStorageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -20,36 +18,61 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordStorageService passwordStorageService;
 
-    public ResponseEntity<?> generateJWTsForUser(AuthRequest authRequest) {
+    public ResponseEntity<LoginApiResponse> generateJWTsForUser(AuthRequest authRequest) {
         List<User> userList = this.userRepository.findByEmail(authRequest.getEmail());
         
         try {
             if (userList.size() == 1 && passwordStorageService.decrypt(userList.get(0).getPassword()).equalsIgnoreCase(authRequest.getPassword())){
                 String accessToken = jwtService.generateJWT(authRequest.getEmail(), JWTTokenType.ACCESS.name());
                 String refreshToken = jwtService.generateJWT(authRequest.getEmail(), JWTTokenType.REFRESH.name());
-                return ResponseEntity.ok(new AuthResponse(accessToken, refreshToken));
+
+                LoginApiResponse loginApiResponse = new LoginApiResponse(
+                        HttpStatus.OK.value(),
+                        "User registered with Success",
+                        accessToken,
+                        refreshToken
+                );
+                return ResponseEntity.ok(loginApiResponse);
             } else {
-                return ResponseEntity.ok("Register first, then login");
+                LoginApiResponse loginApiResponse = new LoginApiResponse(HttpStatus.OK.value(), "Register first, then login", "", "");
+                return ResponseEntity.ok(loginApiResponse);
             }
         } catch (Exception e) {
-            // should do something better....
-            return ResponseEntity.internalServerError().build();
+            LoginApiResponse loginApiResponse = new LoginApiResponse(
+                    HttpStatus.BAD_REQUEST.value(),
+                    "Make sure that you provide a valid request body in json format",
+                    "",
+                    ""
+            );
+            return ResponseEntity.badRequest().body(loginApiResponse);
         }
     }
 
-    public ResponseEntity<String> registerUser(AuthRequest authRequest) {
+    public ResponseEntity<RegisterApiResponse> registerUser(AuthRequest authRequest) {
         if (this.userRepository.findByEmail(authRequest.getEmail()).isEmpty()) {
             try {
                 User newApplicationUser = new User(authRequest.getEmail(), passwordStorageService.encrypt(authRequest.getPassword()));
                 this.userRepository.save(newApplicationUser);
-                return ResponseEntity.ok("Register user with success");
+
+                RegisterApiResponse registerApiResponse = new RegisterApiResponse(
+                        HttpStatus.OK.value(),
+                        newApplicationUser.toString()
+                );
+                return ResponseEntity.ok(registerApiResponse);
             } catch (Exception e) {
-                // should do something better....
-                return ResponseEntity.internalServerError().build();
+                RegisterApiResponse registerApiResponse = new RegisterApiResponse(
+                        HttpStatus.BAD_REQUEST.value(),
+                        "Make sure that you provide a valid request body in json format"
+                );
+                return ResponseEntity.badRequest().body(registerApiResponse);
             }
             
         } else {
-            return ResponseEntity.ok("User with given email is already registered");
+            RegisterApiResponse registerApiResponse = new RegisterApiResponse(
+                    HttpStatus.OK.value(),
+                    "User with given email is already registered"
+            );
+            return ResponseEntity.ok(registerApiResponse);
         }
     }
 
