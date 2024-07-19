@@ -8,7 +8,6 @@ also has the responsibility to check if requests are authenticated before routin
 - Spring Cloud Netflix - Eureka Server & Client<br/>
 - MySQL Database<br/>
 - io.jsonwebtoken:jjwt<br/>
-- Angular<br/>
 
 <p>
 Details regarding how to run the project locally are provided at the bottom of this file.
@@ -60,7 +59,7 @@ password in microservice's properties file.
 - Start the Angular client using ng serve --open.
 
 <p>
-Then, using the Angular client first register then login.
+Then, using the Angular client (https://github.com/thoTsou/Angular_Client_for_microservices_project) first register then login.
 After login choose a quotes category from the dropdown menu and click Display Quote button.
 </p>
 
