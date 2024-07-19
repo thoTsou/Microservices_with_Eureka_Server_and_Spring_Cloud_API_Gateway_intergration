@@ -8,9 +8,10 @@ also has the responsibility to check if requests are authenticated before routin
 - Spring Cloud Netflix - Eureka Server & Client<br/>
 - MySQL Database
 - io.jsonwebtoken:jjwt
+- Angular
 
 <p>
-Details regarding running the project locally are provided at the bottom of this file.
+Details regarding how to run the project locally are provided at the bottom of this file.
 Before that, please read the project description above.
 </p>
 
@@ -32,19 +33,19 @@ API gateway only allows un-authenticated requests to the auth-service microservi
 This microservice handles user registration and login.
 A user has to register first providing an email-password combination (auth-service provides a register API)
 and then user has to login with the same email-password combination (auth-service provides a login API)
-in order to obtain JWT access & refresh tokens.
+in order to obtain an access JWT.
 </p>
 
 <p>
-User can then use the obtained access JWT (as request header) in order to make 
+Client can then use the obtained access JWT (as request header) in order to make 
 requests to all microservices behind the API Gateway. If a request is un-authenticated
 or JWT is expired or corrupted then API Gateway will return a proper message
 to the client and will not route client's request.
 </p>
 
 <p>
-test-service-one provides a simple API (/test) which returns a message
-only if request is authenticated by the API-Gateway.
+test-service-one provides a simple API (/quote/random-quote) which returns
+random quotes.
 </p>
 
 
@@ -56,10 +57,11 @@ and specify your own username and
 password in microservice's properties file.
 - Start test-service-one app.
 - Start api-gateway app (this is the API Gateway).
+- Start the Angular client using ng serve --open.
+
 <p>
-Then, simply register and login using the auth-service APIs (http://localhost:8080/auth-service/register and http://localhost:8080/auth-service/login)
-and use the access token after a successfull login to
-make a request to http://localhost:8080/test-service-one/test API.
+Then, using the Angular client first register then login.
+After login choose a quotes category from the dropdown menu and click Display Quote button.
 </p>
 
 

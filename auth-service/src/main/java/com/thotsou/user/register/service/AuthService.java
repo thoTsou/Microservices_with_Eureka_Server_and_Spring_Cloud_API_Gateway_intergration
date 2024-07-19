@@ -24,24 +24,22 @@ public class AuthService {
         try {
             if (userList.size() == 1 && passwordStorageService.decrypt(userList.get(0).getPassword()).equalsIgnoreCase(authRequest.getPassword())){
                 String accessToken = jwtService.generateJWT(authRequest.getEmail(), JWTTokenType.ACCESS.name());
-                String refreshToken = jwtService.generateJWT(authRequest.getEmail(), JWTTokenType.REFRESH.name());
+//                String refreshToken = jwtService.generateJWT(authRequest.getEmail(), JWTTokenType.REFRESH.name());
 
                 LoginApiResponse loginApiResponse = new LoginApiResponse(
                         HttpStatus.OK.value(),
-                        "User registered with Success",
-                        accessToken,
-                        refreshToken
+                        "User logged in with Success",
+                        accessToken
                 );
                 return ResponseEntity.ok(loginApiResponse);
             } else {
-                LoginApiResponse loginApiResponse = new LoginApiResponse(HttpStatus.OK.value(), "Register first, then login", "", "");
+                LoginApiResponse loginApiResponse = new LoginApiResponse(HttpStatus.OK.value(), "Register first, then login", "");
                 return ResponseEntity.ok(loginApiResponse);
             }
         } catch (Exception e) {
             LoginApiResponse loginApiResponse = new LoginApiResponse(
                     HttpStatus.BAD_REQUEST.value(),
                     "Make sure that you provide a valid request body in json format",
-                    "",
                     ""
             );
             return ResponseEntity.badRequest().body(loginApiResponse);
