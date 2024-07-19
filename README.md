@@ -6,9 +6,9 @@ also has the responsibility to check if requests are authenticated before routin
 - Spring Boot<br/>
 - Spring Cloud API gateway<br/>
 - Spring Cloud Netflix - Eureka Server & Client<br/>
-- MySQL Database
-- io.jsonwebtoken:jjwt
-- Angular
+- MySQL Database<br/>
+- io.jsonwebtoken:jjwt<br/>
+- Angular<br/>
 
 <p>
 Details regarding how to run the project locally are provided at the bottom of this file.
