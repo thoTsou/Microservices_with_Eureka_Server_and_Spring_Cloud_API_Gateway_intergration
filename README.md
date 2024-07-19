@@ -56,10 +56,10 @@ and specify your own username and
 password in microservice's properties file.
 - Start test-service-one app.
 - Start api-gateway app (this is the API Gateway).
-- Start the Angular client using ng serve --open.
+- Start the Angular client (https://github.com/thoTsou/Angular_Client_for_microservices_project) using ng serve --open.
 
 <p>
-Then, using the Angular client (https://github.com/thoTsou/Angular_Client_for_microservices_project) first register then login.
+Then, using the Angular client first register then login.
 After login choose a quotes category from the dropdown menu and click Display Quote button.
 </p>
 
