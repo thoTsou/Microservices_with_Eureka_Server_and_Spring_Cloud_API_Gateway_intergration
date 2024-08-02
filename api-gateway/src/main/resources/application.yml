@@ -22,6 +22,7 @@ spring:
             allowedMethods:
               - GET
               - POST
+            allow-credentials: true
       discovery:
         locator:
           enabled: true

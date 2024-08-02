@@ -28,6 +28,14 @@ public class JWTService {
         this.signingKey = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
+    public Claims getAllClaimsFromToken(String token) {
+        return Jwts.parser().verifyWith(this.signingKey).build().parseSignedClaims(token).getPayload();
+    }
+
+    public boolean isTokenExpired(String token) {
+        return this.getAllClaimsFromToken(token).getExpiration().before(new Date());
+    }
+
     public String generateJWT(String userEmail, String JWTType) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", userEmail);
